@@ -106,4 +106,39 @@ namespace Assignment_01
             }
         }
     }
+    class A1q5
+    {
+        //Question: Develop a C# application that asks the user to enter a password. The password should be validated based on the
+        //following criteria: at least 8 characters long, contains at least one uppercase letter, one lowercase letter,
+        //and one number. Display appropriate messages based on the validation result.
+        public void checkPassword()
+        {
+            Console.Write("Enter the password : ");
+            string pass = Console.ReadLine();
+            bool isLower = false;
+            bool isUpper = false;
+            bool isDigit = false;
+            if(pass.Length > 7)
+            {
+                foreach(char c in pass)
+                {
+                    if(char.IsDigit(c))
+                        isDigit = true;
+                    else if(char.IsLower(c))
+                        isLower = true;
+                    else if(char.IsUpper(c))
+                        isUpper = true;
+                }
+                if (isUpper && isLower && isDigit)
+                    Console.WriteLine("password is valid");
+                return;
+            }
+            Console.WriteLine("Password is invalid. It must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one number like qRi4n9gL");
+        }
+
+    }
+    class A1q6
+    {
+
+    }
 }
