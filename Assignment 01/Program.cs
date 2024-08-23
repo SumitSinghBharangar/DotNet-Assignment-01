@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Assignment_01
 {
@@ -10,16 +13,56 @@ namespace Assignment_01
     {
         static void Main(string[] args)
         {
-            //A1q1 ques01 = new A1q1();
-            //ques01.func01();
-            //A1q2 ques02 = new A1q2();
-            //A1q3 obj = new A1q3();
-            //obj.checkBalance();
-            //obj.deposit(8000);
-            //obj.withdraw(18000);
-            //obj.checkBalance();
+            A1q1 ques01 = new A1q1();
+            ques01.func01();
+
+
+            A1q2 ques02 = new A1q2();
+            ques02.func02();
+
+
+            A1q3 ques03 = new A1q3();
+            ques03.checkBalance();
+            ques03.deposit(8000);
+            ques03.withdraw(18000);
+            ques03.checkBalance();
+
+
             A1q4 ques04 = new A1q4();
             ques04.func04();
+
+
+            A1q5 ques05 = new A1q5();
+            ques05.checkPassword();
+
+
+            A1q6 ques06 = new A1q6();
+            ques06.GetTotalCharge();
+
+
+            A1q7 ques07 = new A1q7();
+            ques07.attend();
+            ques07.attend();
+            ques07.attend();
+            ques07.attend();
+            ques07.getAttendence();
+            ques07.isPerfectattence();
+
+
+            A1q8 ques08 = new A1q8();
+            ques08.getExpenseDetails();
+
+
+            A1q9 quesQ9 = new A1q9();
+            quesQ9.addItem("laptop", 60000);
+            quesQ9.addItem("mobile", 19000);
+            quesQ9.addItem("watch", 2000);
+            quesQ9.removeItem("watch");
+            quesQ9.getTotalPrice();
+
+
+            A1q10 ques10 = new A1q10();
+            ques10.getMonthSallery();
         }
     }
     class A1q1
@@ -139,6 +182,322 @@ namespace Assignment_01
     }
     class A1q6
     {
+        //Question: Write a C# program to calculate the fare of a taxi ride. The fare is calculated based on the distance traveled.
+        //The first 2 kilometers are charged at a flat rate (Rs. 20), and any additional kilometers are charged at a per-kilometer rate.
+        //Include a night surcharge if the ride occurs after 10 PM.
+        public void GetTotalCharge()
+        {
+            double fixedCharge = 20;
+            double chargePerKm = 5;
+            double totalCharge = 0;
+            Console.Write("Enter the distance travelled : ");
+            double dis = double.Parse(Console.ReadLine());
+            Console.Write("Enter the subcharge is applied : ");
+            double subCharge = double.Parse(Console.ReadLine());
+            if(dis < 3)
+            {
+                totalCharge = totalCharge + fixedCharge;
+                Console.WriteLine("Your total charge is " + totalCharge.ToString());
+                return;
+            }
+            totalCharge = ((dis - 2) * chargePerKm) + fixedCharge + subCharge;
+            Console.WriteLine("Your total charge is " + totalCharge.ToString());
+        }
 
     }
+    class A1q7
+    {
+        //Question: A school tracks the attendance of students over 5 days.The system should be able to record attendance,
+        //calculate the total number of days attended, and identify if a student has perfect attendance.
+        int attendece = 0;
+        int totalAttendence = 5;
+        public void getAttendence()
+        {
+            Console.WriteLine("Your attendence is "+ (totalAttendence - attendece).ToString()); 
+        }
+        public void attend()
+        {
+            attendece++;
+        }
+        public bool isPerfectattence()
+        {
+            return attendece > 2 ? true : false;
+        }
+        
+    }
+    class A1q8
+    {
+        //Question: An individual tracks their expenses for each month in a year.They want to calculate the total expenses for the
+        //year and identify the month with the highest and lowest expenses.
+        public void getExpenseDetails()
+        {
+            double[] months = new double[12];
+            double totalExpense = 0;
+            int maxExpenseMonth = 1;
+            int minExpenseMonth = 1;
+            for(int i = 0; i < months.Length; i++)
+            {
+                Console.Write("enter expense of " + (i + 1) + " month : ");
+                months[i] = double.Parse(Console.ReadLine());
+                totalExpense += months[i];
+            }
+            for(int i = 0;i < totalExpense; i++)
+            {
+                if (months[maxExpenseMonth] < months[i])
+                {
+                    maxExpenseMonth = i;
+                }
+                else if (months[minExpenseMonth] > months[i])
+                {
+                    minExpenseMonth = i;
+                }
+            }
+            Console.WriteLine("Maximum expense month : "+ maxExpenseMonth.ToString() );
+            Console.WriteLine("Minimum expense month : "+ minExpenseMonth.ToString() );
+            Console.WriteLine("Total expense of year : "+ totalExpense.ToString() );
+
+
+        }
+
+    }
+    class A1q9
+    {
+        //Question: Implement a shopping cart system where a user can add items, remove items, and view the total price.
+        //Assume each item has a name and a price.
+        Dictionary<string, double> cart = new Dictionary<string, double>();
+        double total = 0;
+
+        public void  addItem(string name,double price)
+        {
+            cart.Add(name, price);
+            total += price;
+        }
+        public void removeItem(string name)
+        {
+            total -= cart[name];
+            cart.Remove(name);
+
+        }
+        public void getTotalPrice()
+        {
+            Console.WriteLine("Total price is "+ total.ToString() );
+        }
+
+    }
+    class A1q10
+    {
+        //Question: Create a program that calculates the monthly salary of an employee based on their hourly wage and the number of
+        //hours worked in a week.Consider that there are 4 weeks in a month.
+
+        public void getMonthSallery()
+        {
+            int[] weekHours = new int[4];
+            
+            int totalHours = 0;
+            Console.Write("Enter the wage per hour rate : ");
+            int hourWage = int.Parse(Console.ReadLine());
+            for (int i = 0; i < weekHours.Length; i++)
+            {
+                Console.Write("Enter the hours of " + (i + 1) + "week : ");
+                weekHours[i] = int.Parse(Console.ReadLine());
+                totalHours += weekHours[i];
+            }
+            Console.WriteLine("Your tatal sallery of months is "+(totalHours*hourWage).ToString());
+            
+
+        }
+
+    }
+
+
+
+    // assignment 03 
+    // question 01
+
+    class A3q10
+    {
+        
+        public string Name { get; set; }
+        public int RollNo { get; set; }
+        public int[] Marks { get; set; } = new int[5];
+        public int TotalMarks { get; private set; }
+        public double Percentage { get; private set; }
+
+        
+        public static string UniversityName;
+
+        
+        static A3q10()
+        {
+            UniversityName = "Default University";
+        }
+
+       
+        public A3q10()
+        {
+            Name = "Unknown";
+            RollNo = 0;
+            for (int i = 0; i < Marks.Length; i++)
+            {
+                Marks[i] = 0;
+            }
+            TotalMarks = 0;
+            Percentage = 0.0;
+        }
+
+        
+        public A3q10(string name, int rollNo, int[] marks)
+        {
+            Name = name;
+            RollNo = rollNo;
+            Marks = marks;
+            CalculateResult();
+        }
+
+        
+        public void ReadData()
+        {
+            Random random = new Random();
+
+            
+            string[] names = { "John", "Alice", "Bob", "Eve", "Charlie" };
+            Name = names[random.Next(names.Length)];
+
+            
+            RollNo = random.Next(1, 1000);
+
+            
+            for (int i = 0; i < Marks.Length; i++)
+            {
+                Marks[i] = random.Next(40, 100); 
+            }
+
+            Console.WriteLine("Data generated automatically.");
+        }
+
+        
+        public void CalculateResult()
+        {
+            TotalMarks = 0;
+            for (int i = 0; i < Marks.Length; i++)
+            {
+                TotalMarks += Marks[i];
+            }
+            Percentage = TotalMarks / 5.0;
+        }
+
+        
+        public void Display()
+        {
+            Console.WriteLine("\nStudent Details:");
+            Console.WriteLine($"Name: {Name}");
+            Console.WriteLine($"Roll No: {RollNo}");
+            Console.WriteLine($"University: {UniversityName}");
+            Console.WriteLine("Marks: " + string.Join(", ", Marks));
+            Console.WriteLine($"Total Marks: {TotalMarks}");
+            Console.WriteLine($"Percentage: {Percentage:F2}%");
+        }
+
+
+    }
+
+   //  Qusestion 02 
+
+
+
+    interface Account
+    {
+        void Open_Account();
+        void Close_Account();
+    }
+
+    interface Customer
+    {
+        void Display_Customer_Detail();
+    }
+
+    class A3q2 : Account, Customer
+    {
+        public string CustomerName { get; set; }
+        public int AccountNumber { get; set; }
+        public double Balance { get; private set; }
+
+        public static string BankName;
+
+        static A3q2()
+        {
+            BankName = "Default Bank";
+        }
+
+        public A3q2()
+        {
+            CustomerName = "Unknown";
+            AccountNumber = 0;
+            Balance = 0.0;
+        }
+
+        public A3q2(string customerName, int accountNumber, double initialBalance)
+        {
+            CustomerName = customerName;
+            AccountNumber = accountNumber;
+            Balance = initialBalance;
+        }
+
+        public void Open_Account()
+        {
+            Console.WriteLine($"Account opened for {CustomerName} with Account Number {AccountNumber} at {BankName}.");
+        }
+
+        public void Close_Account()
+        {
+            Console.WriteLine($"Account {AccountNumber} for {CustomerName} has been closed.");
+        }
+
+        public void Display_Customer_Detail()
+        {
+            Console.WriteLine("\nCustomer Details:");
+            Console.WriteLine($"Name: {CustomerName}");
+            Console.WriteLine($"Account Number: {AccountNumber}");
+            Console.WriteLine($"Bank: {BankName}");
+            Console.WriteLine($"Balance: {Balance:C}");
+        }
+
+        public void Withdraw(double amount)
+        {
+            if (amount > Balance)
+            {
+                Console.WriteLine("Insufficient balance.");
+            }
+            else
+            {
+                Balance -= amount;
+                Console.WriteLine($"Withdrawal successful. New balance: {Balance:C}");
+            }
+        }
+
+        public void Deposit(double amount)
+        {
+            if (amount <= 0)
+            {
+                Console.WriteLine("Deposit amount must be positive.");
+            }
+            else
+            {
+                Balance += amount;
+                Console.WriteLine($"Deposit successful. New balance: {Balance:C}");
+            }
+        }
+
+        public void Check_And_Display_Balance()
+        {
+            Console.WriteLine($"Current balance: {Balance:C}");
+        }
+    }
+
+
+
+
+
+
+
 }
