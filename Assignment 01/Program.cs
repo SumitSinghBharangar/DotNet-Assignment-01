@@ -203,6 +203,112 @@ namespace Assignment_01
             totalCharge = ((dis - 2) * chargePerKm) + fixedCharge + subCharge;
             Console.WriteLine("Your total charge is " + totalCharge.ToString());
         }
+<<<<<<< HEAD
+=======
+
+    }
+    class A1q7
+    {
+        //Question: A school tracks the attendance of students over 5 days.The system should be able to record attendance,
+        //calculate the total number of days attended, and identify if a student has perfect attendance.
+        int attendece = 0;
+        int totalAttendence = 5;
+        public void getAttendence()
+        {
+            Console.WriteLine("Your attendence is "+ (totalAttendence - attendece).ToString()); 
+        }
+        public void attend()
+        {
+            attendece++;
+        }
+        public bool isPerfectattence()
+        {
+            return attendece > 2 ? true : false;
+        }
+        
+    }
+    class A1q8
+    {
+        //Question: An individual tracks their expenses for each month in a year.They want to calculate the total expenses for the
+        //year and identify the month with the highest and lowest expenses.
+        public void getExpenseDetails()
+        {
+            double[] months = new double[12];
+            double totalExpense = 0;
+            int maxExpenseMonth = 1;
+            int minExpenseMonth = 1;
+            for(int i = 0; i < months.Length; i++)
+            {
+                Console.Write("enter expense of " + (i + 1) + " month : ");
+                months[i] = double.Parse(Console.ReadLine());
+                totalExpense += months[i];
+            }
+            for(int i = 0;i < totalExpense; i++)
+            {
+                if (months[maxExpenseMonth] < months[i])
+                {
+                    maxExpenseMonth = i;
+                }
+                else if (months[minExpenseMonth] > months[i])
+                {
+                    minExpenseMonth = i;
+                }
+            }
+            Console.WriteLine("Maximum expense month : "+ maxExpenseMonth.ToString() );
+            Console.WriteLine("Minimum expense month : "+ minExpenseMonth.ToString() );
+            Console.WriteLine("Total expense of year : "+ totalExpense.ToString() );
+
+
+        }
+
+    }
+    class A1q9
+    {
+        //Question: Implement a shopping cart system where a user can add items, remove items, and view the total price.
+        //Assume each item has a name and a price.
+        Dictionary<string, double> cart = new Dictionary<string, double>();
+        double total = 0;
+
+        public void  addItem(string name,double price)
+        {
+            cart.Add(name, price);
+            total += price;
+        }
+        public void removeItem(string name)
+        {
+            total -= cart[name];
+            cart.Remove(name);
+
+        }
+        public void getTotalPrice()
+        {
+            Console.WriteLine("Total price is "+ total.ToString() );
+        }
+
+    }
+    class A1q10
+    {
+        //Question: Create a program that calculates the monthly salary of an employee based on their hourly wage and the number of
+        //hours worked in a week.Consider that there are 4 weeks in a month.
+
+        public void getMonthSallery()
+        {
+            int[] weekHours = new int[4];
+            
+            int totalHours = 0;
+            Console.Write("Enter the wage per hour rate : ");
+            int hourWage = int.Parse(Console.ReadLine());
+            for (int i = 0; i < weekHours.Length; i++)
+            {
+                Console.Write("Enter the hours of " + (i + 1) + "week : ");
+                weekHours[i] = int.Parse(Console.ReadLine());
+                totalHours += weekHours[i];
+            }
+            Console.WriteLine("Your tatal sallery of months is "+(totalHours*hourWage).ToString());
+            
+
+        }
+>>>>>>> c89211ccc87a11eb0be0cdc2725a88419ab61792
 
     }
     class A1q7
